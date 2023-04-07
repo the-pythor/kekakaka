@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Time to Leave Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>Time to Leave Calculator</h1>
+	</header>
+	<main>
+		<form>
+			<label for="clockIn">Clock In:</label>
+			<input type="time" id="clockIn">
+			<br>
+			<label for="clockOut">Clock Out:</label>
+			<input type="time" id="clockOut">
+			<br>
+			<button type="button" onclick="calculate()">Calculate</button>
+			<br>
+			<label for="timeToLeave">Time to Leave:</label>
+			<input type="text" id="timeToLeave" readonly>
+		</form>
+	</main>
+	<script src="script.js"></script>
+</body>
+</html>
