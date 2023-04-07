@@ -1,25 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Time to Leave Calculator</title>
-	<link rel="stylesheet" href="style.css">
+	<title>Effective Hours Calculator</title>
+	<style>
+		label {
+			display: inline-block;
+			width: 100px;
+			margin-bottom: 10px;
+		}
+		input {
+			width: 150px;
+			margin-bottom: 10px;
+		}
+		button {
+			margin-top: 10px;
+		}
+	</style>
 </head>
 <body>
-	<header>
-		<h1>Time to Leave Calculator</h1>
-	</header>
-	<main>
-		<form>
-			<label for="clockInOut">Clock In/Out:</label>
-			<textarea id="clockInOut"></textarea>
-			<br>
-			<button type="button" onclick="calculate()">Calculate</button>
-			<br>
-			<label for="timeToLeave">Time to Leave:</label>
-			<input type="text" id="timeToLeave" readonly>
-		</form>
-	</main>
-	<script src="script.js"></script>
+	<h1>Effective Hours Calculator</h1>
+	<form>
+		<label for="clockIn">Clock In:</label>
+		<input type="text" id="clockIn"><br>
+		<label for="clockOut">Clock Out:</label>
+		<input type="text" id="clockOut"><br>
+		<button type="button" onclick="calculateEffectiveHours()">Calculate</button>
+	</form>
+	<p id="effectiveHours"></p>
+	<script>
+		function calculateEffectiveHours() {
+			// Get the values of the clock in and clock out inputs
+			var clockIn = document.getElementById("clockIn").value;
+			var clockOut = document.getElementById("clockOut").value;
+
+			// Convert the clock in and clock out times to Date objects
+			var clockInTime = new Date("01/01/1970 " + clockIn);
+			var clockOutTime = new Date("01/01/1970 " + clockOut);
+
+			// Calculate the difference in hours between the clock in and clock out times
+			var difference = clockOutTime.getTime() - clockInTime.getTime();
+			var hours = Math.round(difference / (1000 * 60 * 60) * 100) / 100;
+
+			// Display the effective hours
+			document.getElementById("effectiveHours").innerHTML = "Effective Hours: " + hours;
+		}
+	</script>
 </body>
 </html>
