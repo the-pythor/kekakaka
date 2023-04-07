@@ -33,9 +33,16 @@
 			var clockIn = document.getElementById("clockIn").value;
 			var clockOut = document.getElementById("clockOut").value;
 
-			// Convert the clock in and clock out times to Date objects
+			// Convert the clock in time to a Date object
 			var clockInTime = new Date("01/01/1970 " + clockIn);
-			var clockOutTime = new Date("01/01/1970 " + clockOut);
+
+			// If clock out is missing, use the current time
+			if (clockOut === "") {
+				var clockOutTime = new Date();
+			} else {
+				// Convert the clock out time to a Date object
+				var clockOutTime = new Date("01/01/1970 " + clockOut);
+			}
 
 			// Calculate the difference in hours between the clock in and clock out times
 			var difference = clockOutTime.getTime() - clockInTime.getTime();
