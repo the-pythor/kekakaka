@@ -22,18 +22,7 @@ function calculate() {
     totalTime += timeDiff;
   }
   
-  const grossHours = totalTime / 3600000;
-  const effectiveHours = grossHours - 1;
+  const effectiveHours = totalTime / 3600000;
   
-  if (effectiveHours < 8.5) {
-    timeToLeave.value = `Effective hours: ${effectiveHours.toFixed(2)} (less than 8.5 hours).`;
-  } else if (grossHours < 9.5) {
-    timeToLeave.value = `Gross hours: ${grossHours.toFixed(2)} (less than 9.5 hours).`;
-  } else {
-    const now = new Date();
-    const timeToGo = new Date(now.getTime() + ((9.5 - grossHours) * 3600000));
-    const remainingHours = (timeToGo.getTime() - now.getTime()) / 3600000;
-    
-    timeToLeave.value = `Effective hours: ${effectiveHours.toFixed(2)}\nGross hours: ${grossHours.toFixed(2)}\nYou can leave at ${timeToGo.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. Remaining hours: ${remainingHours.toFixed(2)}.`;
-  }
+  timeToLeave.value = `Effective hours: ${effectiveHours.toFixed(2)}.`;
 }
