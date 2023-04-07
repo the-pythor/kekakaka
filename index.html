@@ -9,7 +9,7 @@
 			margin-bottom: 10px;
 		}
 		input {
-			width: 150px;
+			width: 300px;
 			margin-bottom: 10px;
 		}
 		button {
@@ -20,36 +20,45 @@
 <body>
 	<h1>Effective Hours Calculator</h1>
 	<form>
-		<label for="clockIn">Clock In:</label>
-		<input type="text" id="clockIn"><br>
-		<label for="clockOut">Clock Out:</label>
-		<input type="text" id="clockOut"><br>
+		<label for="clocks">Clock Ins and Outs:</label>
+		<input type="text" id="clocks"><br>
 		<button type="button" onclick="calculateEffectiveHours()">Calculate</button>
 	</form>
 	<p id="effectiveHours"></p>
 	<script>
 		function calculateEffectiveHours() {
-			// Get the values of the clock in and clock out inputs
-			var clockIn = document.getElementById("clockIn").value;
-			var clockOut = document.getElementById("clockOut").value;
+			// Get the value of the clock ins and outs input
+			var clocks = document.getElementById("clocks").value;
 
-			// Convert the clock in time to a Date object
-			var clockInTime = new Date("01/01/1970 " + clockIn);
+			// Split the input string into an array of clock ins and outs
+			var clockList = clocks.split(",");
 
-			// If clock out is missing, use the current time
-			if (clockOut === "") {
-				var clockOutTime = new Date();
-			} else {
-				// Convert the clock out time to a Date object
-				var clockOutTime = new Date("01/01/1970 " + clockOut);
+			// Convert each clock in and clock out time to a Date object
+			var clockInTimes = [];
+			var clockOutTimes = [];
+			for (var i = 0; i < clockList.length; i += 2) {
+				var clockInTime = new Date("01/01/1970 " + clockList[i].trim());
+				clockInTimes.push(clockInTime);
+
+				// If there is no corresponding clock out, use the current time
+				if (i + 1 >= clockList.length) {
+					var clockOutTime = new Date();
+				} else {
+					var clockOutTime = new Date("01/01/1970 " + clockList[i + 1].trim());
+				}
+				clockOutTimes.push(clockOutTime);
 			}
 
-			// Calculate the difference in hours between the clock in and clock out times
-			var difference = clockOutTime.getTime() - clockInTime.getTime();
-			var hours = Math.round(difference / (1000 * 60 * 60) * 100) / 100;
+			// Calculate the total difference in hours between all clock in and clock out times
+			var totalDifference = 0;
+			for (var i = 0; i < clockInTimes.length; i++) {
+				var difference = clockOutTimes[i].getTime() - clockInTimes[i].getTime();
+				totalDifference += difference;
+			}
+			var totalHours = Math.round(totalDifference / (1000 * 60 * 60) * 100) / 100;
 
 			// Display the effective hours
-			document.getElementById("effectiveHours").innerHTML = "Effective Hours: " + hours;
+			document.getElementById("effectiveHours").innerHTML = "Effective Hours: " + totalHours;
 		}
 	</script>
 </body>
